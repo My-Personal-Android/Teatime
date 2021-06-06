@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class OrderActivity extends AppCompatActivity {
 
@@ -34,17 +35,20 @@ public class OrderActivity extends AppCompatActivity {
 
     private String mSize;
 
-    public final static String EXTRA_TOTAL_PRICE = "com.example.android.teatime.EXTRA_TOTAL_PRICE";
-    public final static String EXTRA_TEA_NAME = "com.example.android.teatime.EXTRA_TEA_NAME";
-    public final static String EXTRA_SIZE = "com.example.android.teatime.EXTRA_SIZE";
-    public final static String EXTRA_MILK_TYPE = "com.example.android.teatime.EXTRA_MILK_TYPE";
-    public final static String EXTRA_SUGAR_TYPE = "com.example.android.teatime.EXTRA_SUGAR_TYPE";
-    public final static String EXTRA_QUANTITY = "com.example.android.teatime.EXTRA_QUANTITY";
+    public final static String EXTRA_TOTAL_PRICE = "com.teatime.EXTRA_TOTAL_PRICE";
+    public final static String EXTRA_TEA_NAME = "com.teatime.EXTRA_TEA_NAME";
+    public final static String EXTRA_SIZE = "com.teatime.EXTRA_SIZE";
+    public final static String EXTRA_MILK_TYPE = "com.teatime.EXTRA_MILK_TYPE";
+    public final static String EXTRA_SUGAR_TYPE = "com.teatime.EXTRA_SUGAR_TYPE";
+    public final static String EXTRA_QUANTITY = "com.teatime.EXTRA_QUANTITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_order);
+
         Toolbar menuToolbar = (Toolbar) findViewById(R.id.order_toolbar);
         setSupportActionBar(menuToolbar);
         getSupportActionBar().setTitle(getString(R.string.order_title));
@@ -225,13 +229,14 @@ public class OrderActivity extends AppCompatActivity {
      * Decrements the quantity and recalculates the price
      */
     public void decrement(View view) {
-        if (mQuantity > 0) {
 
+        if (mQuantity > 0) {
             mQuantity = mQuantity - 1;
             displayQuantity(mQuantity);
             mTotalPrice = calculatePrice();
             displayCost(mTotalPrice);
         }
+
     }
 
 
@@ -270,7 +275,8 @@ public class OrderActivity extends AppCompatActivity {
         TextView costTextView = (TextView) findViewById(
                 R.id.cost_text_view);
 
-        String convertPrice = NumberFormat.getCurrencyInstance().format(totalPrice);
+        String convertPrice = NumberFormat.getCurrencyInstance(new Locale("en", "US"))
+                .format(totalPrice);
         costTextView.setText(convertPrice);
     }
 

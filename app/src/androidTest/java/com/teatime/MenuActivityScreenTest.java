@@ -4,7 +4,11 @@ package com.teatime;
 
 
 
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
+import androidx.test.espresso.IdlingResource;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import static androidx.test.espresso.Espresso.onData;
@@ -16,7 +20,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;
 
 
-
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,9 +37,12 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(AndroidJUnit4.class)
+@LargeTest
 public class MenuActivityScreenTest {
 
     public static final String TEA_NAME = "Green Tea";
+
+    private IdlingResource mIdlingResource;
 
     /**
      * The ActivityTestRule is a rule provided by Android used for functional testing of a single
@@ -46,11 +54,19 @@ public class MenuActivityScreenTest {
     @Rule
     public ActivityTestRule<MenuActivity> mActivityTestRule = new ActivityTestRule<>(MenuActivity.class);
 
+    @Before
+    public void registerIdlingResource() {
+        mIdlingResource = mActivityTestRule.getActivity().getIdlingResource();
+        // To prove that the test fails, omit this call:
+        IdlingRegistry.getInstance().register(mIdlingResource);
+    }
+
     /**
      * Clicks on a GridView item and checks it opens up the OrderActivity with the correct details.
      */
+
     @Test
-    public void clickGridViewItem_OpensOrderActivity() {
+    public void clickGridViewItem_OpensGreenTeaOrderActivity() {
 
         // Uses {@link Espresso#onData(org.hamcrest.Matcher)} to get a reference to a specific
         // gridview item and clicks it.
@@ -61,5 +77,11 @@ public class MenuActivityScreenTest {
 
 
     }
-
+    @After
+    public void unregisterIdlingResource() {
+        if (mIdlingResource != null) {
+           // Espresso.unregisterIdlingResources(mIdlingResource);
+            IdlingRegistry.getInstance().unregister(mIdlingResource);
+        }
+    }
 }

@@ -24,14 +24,17 @@
     <string name="initial_cost">$0.00</string>
     <string name="initial_quantity_value">0</string>
     <string name="tea_size">Size</string>
+
     <string name="tea_size_small">Small ($5/cup)</string>
     <string name="tea_size_medium">Medium ($6/cup)</string>
     <string name="tea_size_large">Large ($7/cup)</string>
+
     <string name="milk_type_none">None</string>
     <string name="milk_type_nonfat">Nonfat Milk</string>
     <string name="milk_type_1_percent">1% Milk</string>
     <string name="milk_type_2_percent">2% Milk</string>
     <string name="milk_type_whole">Whole Milk</string>
+
     <string name="sweet_type_0">0% - Not Sweet</string>
     <string name="sweet_type_25">25% - Slightly Sweet</string>
     <string name="sweet_type_50">50% - Half Sweet</string>
@@ -59,7 +62,7 @@
 
     <!--Loading message-->
     <string name="done_msg">Your tea is ready!</string>
-    <string name="loading_msg">Loading images</string>
+    <string name="loading_msg">Loading images...</string>
 
 
     <!--Spinner Options-->

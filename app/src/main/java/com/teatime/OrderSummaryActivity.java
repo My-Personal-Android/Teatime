@@ -11,12 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class OrderSummaryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_order_summary);
         Toolbar menuToolbar = (Toolbar) findViewById(R.id.order_summary_toolbar);
         setSupportActionBar(menuToolbar);
@@ -74,7 +77,8 @@ public class OrderSummaryActivity extends AppCompatActivity {
         TextView priceTextView = (TextView) findViewById(
                 R.id.summary_total_price);
 
-        String convertPrice = NumberFormat.getCurrencyInstance().format(price);
+        String convertPrice = NumberFormat.getCurrencyInstance(new Locale("en", "US"))
+                .format(price);
         priceTextView.setText(convertPrice);
 
     }

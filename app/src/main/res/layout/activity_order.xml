@@ -171,9 +171,11 @@
                     android:id="@+id/decrement_button"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@null"
+                    android:layout_marginRight="30dp"
+                    android:background="@color/screenBackgroundGrey"
                     android:onClick="decrement"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -191,8 +193,10 @@
                     android:id="@+id/increment_button"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@null"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/screenBackgroundGrey"
                     android:onClick="increment"
+                    android:textColor="@color/black"
                     android:textSize="22sp"
                     android:text="+" />
             </LinearLayout>

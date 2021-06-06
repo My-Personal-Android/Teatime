@@ -2,6 +2,7 @@ package com.teatime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -24,7 +25,7 @@ public class MenuActivity extends AppCompatActivity implements ImageDownloader.D
 
     Intent mTeaIntent;
 
-    public final static String EXTRA_TEA_NAME = "com.example.android.teatime.EXTRA_TEA_NAME";
+    public final static String EXTRA_TEA_NAME = "com.teatime.EXTRA_TEA_NAME";
 
     // The Idling Resource which will be null in production.
     @Nullable
@@ -45,25 +46,17 @@ public class MenuActivity extends AppCompatActivity implements ImageDownloader.D
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_menu);
         Toolbar menuToolbar = (Toolbar) findViewById(R.id.menu_toolbar);
         setSupportActionBar(menuToolbar);
         getSupportActionBar().setTitle(getString(R.string.menu_title));
 
-        // Get the IdlingResource instance
         getIdlingResource();
+        ImageDownloader.downloadImage(this, MenuActivity.this, mIdlingResource);
+
     }
 
-    /**
-     * We call ImageDownloader.downloadImage from onStart or onResume instead of in onCreate
-     * to ensure there is enougth time to register IdlingResource if the download is done
-     * too early (i.e. in onCreate)
-     */
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ImageDownloader.downloadImage(this, MenuActivity.this, mIdlingResource);
-    }
 
     /**
      * When the thread in {@link ImageDownloader} is finished, it will return an ArrayList of Tea
@@ -78,8 +71,6 @@ public class MenuActivity extends AppCompatActivity implements ImageDownloader.D
         // Create a {@link TeaAdapter}, whose data source is a list of {@link Tea}s.
         // The adapter know how to create grid items for each item in the list.
         GridView gridview = (GridView) findViewById(R.id.tea_grid_view);
-
-        gridview.setAdapter(new TeaMenuAdapter(this,R.layout.grid_item_layout,new ArrayList<Tea>()));
 
         TeaMenuAdapter adapter = new TeaMenuAdapter(this, R.layout.grid_item_layout, teas);
         gridview.setAdapter(adapter);
